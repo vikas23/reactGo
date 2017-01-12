@@ -25,11 +25,16 @@ class LoginOrRegister extends Component {
     const { manualLogin, signUp, user: { isLogin } } = this.props;
     const email = ReactDOM.findDOMNode(this.refs.email).value;
     const password = ReactDOM.findDOMNode(this.refs.password).value;
+    const name = ReactDOM.findDOMNode(this.refs.name).value;
+    const organisation = ReactDOM.findDOMNode(this.refs.name).value;
+    const manager = ReactDOM.findDOMNode(this.refs.manager).value;
+    const userType = ReactDOM.findDOMNode(this.refs.userType).value;
+    const joinDate = ReactDOM.findDOMNode(this.refs.joinDate).value;
 
     if (isLogin) {
       manualLogin({ email, password });
     } else {
-      signUp({ email, password });
+      signUp({ email, password, name, organisation, manager, userType, joinDate });
     }
   }
 
@@ -78,24 +83,41 @@ class LoginOrRegister extends Component {
           <img className={cx('loading')} alt="loading" src={hourGlassSvg} />
           <div className={cx('email-container')}>
             <form onSubmit={this.handleOnSubmit}>
-              <input
-                className={cx('input')}
-                type="email"
-                ref="email"
-               placeholder="email"
-              />
-              <input
-                className={cx('input')}
-                type="password"
-               ref="password"
-                placeholder="password"
-              />
-              <div className={cx('hint')}>
-                <div>Hint</div>
-                <div>email: example@ninja.com password: ninja</div>
-              </div>
-              <p
-                className={cx('message', {
+              <input className={cx('input')}
+              type="email"
+              ref="email"
+              placeholder="Email" />
+              <input className={cx('input')}
+              type="password"
+              ref="password"
+              placeholder="Password" />
+              {!isLogin && 
+                <div>
+                  <input className={cx('input')}
+                  type="text"
+                  ref="name"
+                  placeholder="Name" />
+                  <input className={cx('input')}
+                  type="text"
+                  ref="organisation"
+                  placeholder="Organisation" />
+                  <input className={cx('input')}
+                  type="text"
+                  ref="manager"
+                  placeholder="Manager" />
+                  <select className={cx('input')}
+                  ref="userType">
+                    <option value="1">Permanent</option>
+                    <option value="2">Contract</option>
+                    <option value="3">Intern</option>
+                  </select>
+                  <input className={cx('input')}
+                  type="date"
+                  ref="joinDate"
+                  placeholder="Join Date" />
+                </div>
+              }
+              <p className={cx('message', {
                 'message-show': message && message.length > 0
               })}>{message}</p>
               <input
@@ -103,12 +125,6 @@ class LoginOrRegister extends Component {
                 type="submit"
                 value={isLogin ? 'Login' : 'Register'} />
             </form>
-          </div>
-          <div className={cx('google-container')}>
-            <h1 className={cx('heading')}>Google Login Demo</h1>
-            <a
-              className={cx('button')}
-              href="/auth/google">Login with Google</a>
           </div>
         </div>
       </div>

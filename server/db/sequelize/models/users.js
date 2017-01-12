@@ -32,20 +32,20 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       defaultValue: ''
     },
-    gender: {
+    organisation: {
       type: DataTypes.STRING,
       defaultValue: ''
     },
-    location: {
+    manager: {
       type: DataTypes.STRING,
       defaultValue: ''
     },
-    website: {
+    userType: {
       type: DataTypes.STRING,
       defaultValue: ''
     },
-    picture: {
-      type: DataTypes.STRING,
+    joinDate: {
+      type: DataTypes.DATE,
       defaultValue: ''
     },
     resetPasswordToken: {
@@ -53,9 +53,6 @@ export default (sequelize, DataTypes) => {
     },
     resetPasswordExpires: {
       type: DataTypes.DATE
-    },
-    google: {
-      type: DataTypes.STRING
     }
   }, {
     timestamps: false,
@@ -70,22 +67,20 @@ export default (sequelize, DataTypes) => {
 
     instanceMethods: {
       comparePassword(candidatePassword) {
-        return bcrypt.compareAsync(candidatePassword, this.password);
-      },
+          return bcrypt.compareAsync(candidatePassword, this.password);
+        },
 
-      toJSON() {
-        return {
-          id: this.id,
-          email: this.email,
-          profile: {
+        toJSON() {
+          return {
+            id: this.id,
+            email: this.email,
             name: this.name,
-            gender: this.gender,
-            location: this.location,
-            website: this.website,
-            picture: this.picture
-          }
-        };
-      }
+            organisation: this.organisation,
+            manager: this.manager,
+            userType: this.userType,
+            joinDate: this.joinDate
+          };
+        }
     }
   });
 
